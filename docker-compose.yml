@@ -1,0 +1,54 @@
+# LightRail AI - Docker Compose Configuration
+# Run with: docker-compose up
+
+version: '3.8'
+
+services:
+  # Development environment
+  lightrail-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: lightrail-dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - VITE_GEMINI_API_KEY=${VITE_GEMINI_API_KEY}
+      - VITE_OPENAI_API_KEY=${VITE_OPENAI_API_KEY}
+      - VITE_ANTHROPIC_API_KEY=${VITE_ANTHROPIC_API_KEY}
+      - VITE_LOG_LEVEL=debug
+    profiles:
+      - dev
+
+  # Production environment
+  lightrail:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_GEMINI_API_KEY=${VITE_GEMINI_API_KEY}
+        - VITE_OPENAI_API_KEY=${VITE_OPENAI_API_KEY}
+        - VITE_ANTHROPIC_API_KEY=${VITE_ANTHROPIC_API_KEY}
+    container_name: lightrail
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    profiles:
+      - prod
+
+  # Optional: Local LLM with Ollama
+  ollama:
+    image: ollama/ollama:latest
+    container_name: lightrail-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    profiles:
+      - local-llm
+
+volumes:
+  ollama_data:

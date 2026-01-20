@@ -1,12 +1,27 @@
 {
-  "name": "app",
+  "name": "lightrail-ai",
+  "version": "1.0.0",
+  "description": "Advanced PCB schematic assistant with intelligent component routing",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "typecheck": "tsc --noEmit",
+    "setup": "./scripts/setup.sh",
+    "clean": "./scripts/clean.sh",
+    "build:embeddings": "./scripts/build-embeddings.sh",
+    "docker:dev": "docker-compose --profile dev up",
+    "docker:prod": "docker-compose --profile prod up -d",
+    "docker:build": "docker build -t lightrail-ai ."
   },
   "dependencies": {
     "@google/genai": "^1.37.0",
@@ -15,9 +30,29 @@
     "react-dom": "^19.2.3"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.2.0",
     "@types/node": "^22.14.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "@vitest/coverage-v8": "^1.2.0",
+    "jsdom": "^24.0.0",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0"
-  }
+    "vite": "^6.2.0",
+    "vitest": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "pcb",
+    "schematic",
+    "ai",
+    "genai",
+    "electronics",
+    "circuit-design",
+    "llm"
+  ],
+  "author": "LightRail Team",
+  "license": "MIT"
 }

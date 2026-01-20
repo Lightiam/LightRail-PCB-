@@ -1,3 +1,13 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build output
+dist
+dist-ssr
+*.local
+build
+
 # Logs
 logs
 *.log
@@ -7,14 +17,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Environment files
+.env
+.env.local
+.env.*.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 .DS_Store
 *.suo
@@ -22,3 +33,41 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*~
+
+# Testing
+coverage
+.vitest
+*.lcov
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Cache
+.cache
+.parcel-cache
+.eslintcache
+.stylelintcache
+
+# Data directories (keep structure, ignore contents)
+data/cache/*
+data/embeddings/*
+data/vector_db/*
+!data/cache/.gitkeep
+!data/embeddings/.gitkeep
+!data/vector_db/.gitkeep
+
+# Docker
+.docker
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Secrets (never commit)
+*.pem
+*.key
+credentials.json
+secrets.json
